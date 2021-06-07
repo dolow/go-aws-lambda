@@ -1,0 +1,131 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Lambda app"
+  description: "Lambda app for serverless api"
+host: "localhost:18888"
+basePath: "/v1"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+paths:
+  /users:
+    get:
+      summary: get list of users
+      operationId: getUsers
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/users'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: "update users"
+      operationId: postUsers
+      parameters:
+        - in: body
+          name: users
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+          description: updating users with id
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/users'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: "create users"
+      operationId: putUsers
+      parameters:
+        - in: body
+          name: users
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+          description: creating new users
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/users'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: "delete users"
+      operationId: deleteUsers
+      parameters:
+        - in: body
+          name: users
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+          description: deleting users with id
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/users'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  users:
+    title: users
+    type: array
+    description: "list of users"
+    items:
+      $ref: '#/definitions/user'
+  user:
+    title: User
+    type: object
+    description: user
+    properties:
+      id:
+        type: string
+        x-omitempty: false
+        description: "user id"
+      name:
+        type: string
+        x-omitempty: false
+        description: "user name"
+    required:
+      - id
+      - name
+  Error:
+    title: Error
+    type: object
+    description: error
+    properties:
+      message:
+        type: string
+        description: "error occured"
